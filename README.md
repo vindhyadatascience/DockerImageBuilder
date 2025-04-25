@@ -50,11 +50,7 @@ The default image has the following specifications:
   * base image - Ubuntu 22.04
   * python v3.10.6
   * R v4.4.2
-  * IDEs
-    * RStudio
-    * Jupyter
-    * JupyterLab
-    * Visual Studio Code
+  * IDEs - RStudio, Jupyter, JupyterLab, Visual Studio Code
 
 * The user can change the base image of the build by editing the value assigned to `current_image` in `build_scripts/generate_master_build_script.sh`.
 * The user can set which python version is used by editing `PYTHON_VERSION` in `config_files/setup.sh`. This image has been tested with v2.7.18, v3.8.12, v3.9.10, or v3.10.2. It is also possible to install multiple versions of Python.
