@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# replaces /var/opt/workspaces/jupyter/start in Locker
+# note: overwrites the file instead of appending
+
+set -o nounset -o errexit -o pipefail
+
+CONF_DIR="$HOME/.jupyter"
+CONF_FILE="${CONF_DIR}/jupyter_notebook_config.py"
+
+mkdir -p "${CONF_DIR}"
+
+cat <<EOF >"${CONF_FILE}"
+c = get_config()                                    
+c.FileContentsManager.preferred_dir = '/home/rr_user'    # replaces ServerApp.preferred_dir; no correspondent in notebook settings
+c.ServerApp.root_dir = '/'                              # was c.NotebookApp.notebook_dir = '/'
+c.ServerApp.tornado_settings = {'headers': {'Content-Security-Policy': 'frame-ancestors *'}}   # was c.NotebookApp.tornado_settings
+c.NotebookApp.default_url = 'tree${DOMINO_WORKING_DIR}'
+c.NotebookApp.quit_button = False 
+c.NotebookApp.open_browser = False    # no browser needed on a server
+c.NotebookApp.ip = '0.0.0.0'          # listen on the network # 
+c.NotebookApp.password = ''            # don't require a password
+c.IdentityProvider.token = ''         # don't require a security token - was c.NotebookApp.token
+c.ExecutePreprocessor.timeout = 365*24*60*60   # cell execution timeout; one year instead of 30 seconds default
+c.ZMQChannelsWebsocketConnection.iopub_data_rate_limit = 10000000000   # was c.NotebookApp.iopub_data_rate_limit
+EOF
+
+COMMAND='jupyter notebook --config="$CONF_FILE" 2>&1'
+eval ${COMMAND}

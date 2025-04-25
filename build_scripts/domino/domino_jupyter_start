@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# replaces /var/opt/workspaces/jupyter/start
+
+# updated 2023/11/06 due to Jupyter starting in / without write permissions
+#  - creates the config file instead of appending to an existing file
+#  - uses current instead of deprecated settings (e.g. server instead of notebook)
+#  - refers to the config file as a parameter in the call to jupyter notebook
+#    - this was already the case in Locker but not Domino
+
+# ServerApp.preferred_dir config is deprecated in jupyter-server 2.0. Use FileContentsManager.preferred_dir instead
+
+# c.NotebookApp.base_url = '${PREFIX}' 
+# 'base_url' has moved from NotebookApp to ServerApp.
+
+# c.NotebookApp.notebook_dir = '/'
+# --notebook-dir - directory to use for notebooks and kernels; Equivalent to: [--ServerApp.root_dir]
+
+# default cell execution timeout in nbconvert is 30 seconds - set it to a year
+# c.ExecutePreprocessor.timeout = 365*24*60*60
+
+# Allow embedding of notebooks in iframes
+# original in notebook config:
+# c.ServerApp.tornado_settings ={ "headers": { "Content-Security-Policy": "frame-ancestors *" } } 
+# possibly superseded in default operation by the following line in server config
+# c.ServerApp.tornado_settings = {'headers': {'Content-Security-Policy': 'frame-ancestors *'}, 'static_url_prefix': '${PREFIX}static/'}  
+
+
+set -o nounset -o errexit -o pipefail
+
+CONF_DIR="$HOME/.jupyter"
+CONF_FILE="${CONF_DIR}/jupyter_notebook_config_Tbio.py" # was jupyter_notebook_config.py - OK to keep as is
+
+PREFIX=/${DOMINO_PROJECT_OWNER}/${DOMINO_PROJECT_NAME}/notebookSession/${DOMINO_RUN_ID}/
+
+mkdir -p "${CONF_DIR}"
+
+cat <<EOF >"${CONF_FILE}"
+c = get_config()
+c.ServerApp.root_dir = '/'
+c.ServerApp.base_url = '${PREFIX}'
+c.NotebookApp.default_url = 'tree/home/rr_user'
+c.FileContentsManager.preferred_dir = '/home/rr_user'
+c.IdentityProvider.token = ''
+c.ExecutePreprocessor.timeout = 365*24*60*60
+c.ZMQChannelsWebsocketConnection.iopub_data_rate_limit = 10000000000
+c.ServerApp.tornado_settings ={ "headers": { "Content-Security-Policy": "frame-ancestors *" } }
+c.NotebookApp.quit_button = False
+c.ServerApp.disable_check_xsrf = True
+EOF
+
+COMMAND="jupyter notebook --config=$CONF_FILE --no-browser --ip=0.0.0.0 2>&1"
+eval ${COMMAND}
+

@@ -1,0 +1,14 @@
+IRkernel
+gargle
+httr
+ids
+openssl
+rvest
+Rcpp
+RcppParallel
+RcppArmadillo
+data.table
+SPAtest
+BH
+optparse
+SKAT

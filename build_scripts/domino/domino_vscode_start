@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# 2023/10/30
+# replaces /var/opt/workspaces/vscode/start
+#  replaced "which python" with "which python3"
+# switched:
+#   if [ -f "$VSCODEFILE" ]; then
+# and
+#   if [ ! -f "$VSCODEFILE" ]; then
+
+FILE=${DOMINO_WORKING_DIR}/vscode-settings/User/settings.json
+VSCODEFILE=${DOMINO_WORKING_DIR}/.vscode/settings.json
+
+##turn off auto updating a VSCode extensions
+if [ -f "$FILE" ]; then
+    #update a user setting file if it does exist
+    jq --argjson value false --arg PYTHONINTERPRETERPATH "$(which python3)" '. + {"extensions.autoUpdate": $value,"python.pythonPath": $PYTHONINTERPRETERPATH}' $FILE > temp-settings.json
+    mv temp-settings.json $FILE
+    rm -rf temp-settings.json
+else
+    #add a user setting file if it doesn't exist
+    mkdir -p ${DOMINO_WORKING_DIR}/vscode-settings/User/
+    printf "{\n\t\"extensions.autoUpdate\":false,\n\t\"python.pythonPath\": \"$(which python3)\"\n}\n" > ${DOMINO_WORKING_DIR}/vscode-settings/User/settings.json
+fi
+
+if [ -f "$VSCODEFILE" ]; then
+    jq --argjson value false --arg PYTHONINTERPRETERPATH "$(which python3)" '. + {"extensions.autoUpdate": $value,"python.pythonPath": $PYTHONINTERPRETERPATH}' $VSCODEFILE > temp-settings.json
+    mv temp-settings.json $VSCODEFILE
+    rm -rf temp-settings.json
+else
+    mkdir -p ${DOMINO_WORKING_DIR}/.vscode
+    printf "{\n\t\"extensions.autoUpdate\":false,\n\t\"python.pythonPath\": \"$(which python3)\"\n}\n" > $VSCODEFILE
+fi
+
+code-server ${DOMINO_WORKING_DIR} --user-data-dir ${DOMINO_WORKING_DIR}/vscode-settings --auth none --bind-addr 0.0.0.0:8888 --extensions-dir ${HOME}/.local/share/code-server/extensions --disable-telemetry
