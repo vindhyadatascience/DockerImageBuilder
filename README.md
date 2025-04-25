@@ -1,4 +1,4 @@
-# DockerImageBuilder - Code and artifacts to make generating Docker images easy and modular
+# DockerImageBuilder
 
 The DockerImageBuilder is a powerful, layered approach to building complex Docker images that's ideal for computational research teams. The system breaks down the build process into discrete stages using configuration files and bash scripts, providing several key advantages:
 
