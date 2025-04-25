@@ -46,10 +46,25 @@ The entire build process is captured in version-controlled configuration files, 
 
 ## Recommendations for building a custom image.
 
-* The user can update the variables in `setup.sh` & `build_setup.sh` to change the parameters of the build.
-* The user can control which steps in the build run (or don't run) by editing `build_scripts/generate_master_build_script.sh`.
+The default image has the following specifications:
+  * base image - Ubuntu 22.04
+  * python v3.10.6
+  * R v4.4.2
+  * IDEs
+    * RStudio
+    * Jupyter
+    * JupyterLab
+    * Visual Studio Code
+
+* The user can change the base image of the build by editing the value assigned to `current_image` in `build_scripts/generate_master_build_script.sh`.
+* The user can set which python version is used by editing `PYTHON_VERSION` in `config_files/setup.sh`. This image has been tested with v2.7.18, v3.8.12, v3.9.10, or v3.10.2. It is also possible to install multiple versions of Python.
 * The user may need to specify the python3 path in `build_self_contained_image.sh`, depending on their setup.
-* Some scripts exist in the repo but are unused to show how different software/packages could potentially be installed.
+* To update the R version, the user needs to update `R_version` in `setup.sh`.
+* To change the R packages installed in the image, the user should edit `config_files/R_packages/rpkgs.txt`.
+* The user can add their software of choice by adding a new step in `build_scripts/generate_master_build_script.sh`.
+* The user can update the variables in `setup.sh` & `build_setup.sh` to change other parameters of the build.
+* The user can control which steps in the build run (or don't run) by editing `build_scripts/generate_master_build_script.sh`.
+* Some scripts exist in the repo but are unused to show how different software/packages could potentially be installed. These can be found in `build_scripts/efs` with the prefix BUILD_*.
 
 ## Dependencies
 
