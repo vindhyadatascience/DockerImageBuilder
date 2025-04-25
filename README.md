@@ -46,7 +46,7 @@ The entire build process is captured in version-controlled configuration files, 
 
 ## Recommendations for building a custom image.
 
-The default image has the following specifications:
+* The default image has the following specifications:
   * base image - Ubuntu 22.04
   * python v3.10.6
   * R v4.4.2
