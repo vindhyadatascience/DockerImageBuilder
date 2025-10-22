@@ -186,7 +186,7 @@ output_local_run_step() {
 }
 
 dockerfile_num=1
-current_image="ubuntu:22.04"
+current_image="ubuntu:24.04"
 # tempdockerimageprefix=my_temp #__
 tempdockerimageprefix=$temp_img_name
 

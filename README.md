@@ -47,13 +47,14 @@ The entire build process is captured in version-controlled configuration files, 
 ## Recommendations for building a custom image.
 
 * The default image has the following specifications:
-  * base image - Ubuntu 22.04
-  * python v3.10.6
-  * R v4.4.2
+  * base image - Ubuntu 24.04 LTS
+  * python v3.13.7
+  * R v4.5.1
+  * Bioconductor v3.21
   * IDEs - RStudio, Jupyter, JupyterLab, Visual Studio Code
 
 * The user can change the base image of the build by editing the value assigned to `current_image` in `build_scripts/generate_master_build_script.sh`.
-* The user can set which python version is used by editing `PYTHON_VERSION` in `config_files/setup.sh`. This image has been tested with v2.7.18, v3.8.12, v3.9.10, or v3.10.2. It is also possible to install multiple versions of Python.
+* The user can set which python version is used by editing `PYTHON_VERSION` in `config_files/setup.sh`. This image has been updated to use Python v3.13.7. It is also possible to install multiple versions of Python.
 * The user may need to specify the python3 path in `build_self_contained_image.sh`, depending on their setup.
 * To update the R version, the user needs to update `R_version` in `setup.sh`.
 * To change the R packages installed in the image, the user should edit `config_files/R_packages/rpkgs.txt`.

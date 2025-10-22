@@ -1,0 +1,30 @@
+name: DockerImageBuilder
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.13
+  - pip
+  - setuptools
+  - wheel
+  - pyyaml
+  - requests
+  - docker-py
+  - dockerfile-parse
+  - jinja2
+  - click
+  - colorama
+  - tyro
+  - rich
+  - numpy
+  - pandas
+  - paramiko
+  - ruamel.yaml
+  - toml
+  - yamllint
+  - validobj
+  - schema
+  - omegaconf
+  - pathlib2
+  - python-dotenv
+  - six
