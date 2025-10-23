@@ -53,28 +53,28 @@ done
 # curl -O https://cdn.rstudio.com/drivers/7C152C12/installer/rstudio-drivers_2023.05.0_amd64.deb
 # sudo gdebi rstudio-drivers_2023.05.0_amd64.deb
 
-tempdockerfile=$(mktemp -u) && echo $tempdockerfile
-R_studio_drivers_deb=$(basename $R_studio_drivers_url)
-
-cat <<EOF >> $tempdockerfile
-
-RUN <<EOR
-    set -x
-    set -e
-
-    # install R Studio drivers
-    # normally: sudo apt-get install unixodbc unixodbc-dev gdebi
-    # due to conflicts, gdebi and unixodbc are installed earlier by add_apts.sh
-    wget --quiet --no-clobber -O /tmp/docker.gpg https://download.docker.com/linux/ubuntu/gpg
-    apt-key add < /tmp/docker.gpg
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-    apt-get update -y -q
-    apt-get install -q -y docker-ce-cli
-    wget --quiet --no-clobber -P /tmp ${R_studio_drivers_url}
-    gdebi --non-interactive --quiet /tmp/$R_studio_drivers_deb
-    rm -f /tmp/docker.gpg /tmp/$R_studio_drivers_deb
-    apt-get -q -y autoremove
-    apt-get -q -y autoclean
+#tempdockerfile=$(mktemp -u) && echo $tempdockerfile
+#R_studio_drivers_deb=$(basename $R_studio_drivers_url)
+#
+#cat <<EOF >> $tempdockerfile
+#
+#RUN <<EOR
+#    set -x
+#    set -e
+#
+#    # install R Studio drivers
+#    # normally: sudo apt-get install unixodbc unixodbc-dev gdebi
+#    # due to conflicts, gdebi and unixodbc are installed earlier by add_apts.sh
+#    wget --quiet --no-clobber -O /tmp/docker.gpg https://download.docker.com/linux/ubuntu/gpg
+#    apt-key add < /tmp/docker.gpg
+#    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu noble stable"
+#    apt-get update -y -q
+#    apt-get install -q -y docker-ce-cli
+#    wget --quiet --no-clobber -P /tmp ${R_studio_drivers_url}
+#    gdebi --non-interactive --quiet /tmp/$R_studio_drivers_deb
+#    rm -f /tmp/docker.gpg /tmp/$R_studio_drivers_deb
+#    apt-get -q -y autoremove
+#    apt-get -q -y autoclean
     rm -fr /var/lib/apt/lists/*
 EOR
 EOF
