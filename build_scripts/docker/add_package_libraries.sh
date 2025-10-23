@@ -58,19 +58,19 @@ RUN <<EOR
 
     # previously a separate block
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
-    # echo "deb http://apt.postgresql.org/pub/repos/apt/ jammy-pgdg main" > /etc/apt/sources.list.d/pgdg.list
-    echo "deb http://apt.postgresql.org/pub/repos/apt/ jammy-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+    # echo "deb http://apt.postgresql.org/pub/repos/apt/ noble-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+    echo "deb http://apt.postgresql.org/pub/repos/apt/ noble-pgdg main" > /etc/apt/sources.list.d/pgdg.list
     apt-get update -y
     gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E084DAB9
     gpg -a --export E084DAB9 | apt-key add -
-    # echo "deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" | tee -a /etc/apt/sources.list
-    add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/"
+    # echo "deb https://cloud.r-project.org/bin/linux/ubuntu noble-cran40/" | tee -a /etc/apt/sources.list
+    add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu noble-cran40/"
     wget --quiet --no-clobber -P /tmp https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc
     cat /tmp/marutter_pubkey.asc >> /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
     apt-get update -y
     apt-get -y -q install apt-utils
-    echo "deb http://us.archive.ubuntu.com/ubuntu/ jammy main universe" | tee -a >> /etc/apt/sources.list
-    echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy main universe" | tee -a >> /etc/apt/sources.list
+    echo "deb http://us.archive.ubuntu.com/ubuntu/ noble main universe" | tee -a >> /etc/apt/sources.list
+    echo "deb-src http://us.archive.ubuntu.com/ubuntu/ noble main universe" | tee -a >> /etc/apt/sources.list
     apt-get update -y
     wget --quiet --no-clobber -P /tmp https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-keyring_1.0-1_all.deb
     dpkg -i /tmp/cuda-keyring_1.0-1_all.deb
