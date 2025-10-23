@@ -33,7 +33,8 @@ fi
 # 2023/01/11: check for sufficient available space
 
 # df=$(df /opt/tbio/ --output=avail --block-size=1G |tail -n 1|sed 's/ //g')
-df=$(df $(dirname ${BUILD_PREFIX}) --output=avail --block-size=1G |tail -n 1|sed 's/ //g')
+# Fixed for Ubuntu 24.04: Check /opt instead of /opt/tbio which doesn't exist yet
+df=$(df /opt --output=avail --block-size=1G |tail -n 1|sed 's/ //g')
 if [[ "$df" -lt "$minfreegb" ]]; then
   echo "There is not enough free space in $(dirname ${BUILD_PREFIX}) ($df GB free, $minfreegb required)" >&2
   exit 1
