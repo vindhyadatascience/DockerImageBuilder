@@ -3,8 +3,8 @@
 # modifies setup.py
 
 # https://computingforgeeks.com/how-to-install-python-on-ubuntu-linux-system/
-version=3.13.7
-for version in 3.13.7
+version=3.12.7
+for version in 3.12.7
 do
   #echo cp ../transfer/Python-${version}_setup.py Python-${version}_setup.modified.py
   tarfile=Python-$version.tgz
