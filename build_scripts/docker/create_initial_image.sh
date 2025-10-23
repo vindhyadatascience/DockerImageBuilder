@@ -35,7 +35,7 @@ RUN <<EOR
   useradd -u 12574 -g 12574 -m -N -s /bin/bash rr_user
   # echo "domino ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
   # adduser domino sudo
-  adduser rr_user sudo
+  usermod -aG sudo rr_user
   cp /root/.bashrc /root/.bashrc.orig
   echo source ${BUILD_PREFIX}/setup.sh > /root/.bashrc
   cat /root/.bashrc.orig >> /root/.bashrc
