@@ -45,8 +45,10 @@ RUN <<EOR
     set -e
     add-apt-repository -y universe
     add-apt-repository -y ppa:git-core/ppa
-    add-apt-repository -y ppa:linuxuprising/java
-    add-apt-repository -y ppa:deadsnakes/ppa
+    # ppa:linuxuprising/java - commented out: not available for Ubuntu 24.04 noble, Java installed from tarball
+    # add-apt-repository -y ppa:linuxuprising/java
+    # ppa:deadsnakes/ppa - commented out: Python 3.13.7 will be compiled from source
+    # add-apt-repository -y ppa:deadsnakes/ppa
 
     # The next batch of commands takes care of Postgres and R related stuff
     # 2022-09-12: added these three lines to next section for libzstd-dev liblz4-dev
