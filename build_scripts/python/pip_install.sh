@@ -27,12 +27,15 @@ err=0
 # 2022/12/14 replaced sklearn (deprecated) with scikit-learn
 # 2023/09: no longer installable in Python 2.7: awscli jupyter statsmodels
 
-p2_and_p3="click xlrd xlwt openpyxl pyjwt requests botocore boto3 urllib3 flask flask_cors certifi requests pycrypto \
+p2_and_p3="click xlrd xlwt openpyxl pyjwt requests botocore boto3 urllib3 flask flask_cors certifi requests pycryptodome \
         pynacl cx_Oracle scipy matplotlib scikit-learn \
 		notebook jupyterlab ipykernel joblib bs4 python-language-server pylint"
 
 p3_only="scanpy pandas pynacl pysqlite3 tensorflow tensorflow_probability umap-learn garnett python-igraph leidenalg scanorama \
         autopep8 flake8 sas_kernel saspy torch louvain scikit-learn-intelex Starfysh awscli jupyter statsmodels macs2" # numpy
+
+# Python 3.13 incompatible packages (removed for 3.13+)
+p3_only_exclude_313="macs2"  # macs2 has compatibility issues with Python 3.13
 
 # The tornado does not build a wheel properly at this time (May 5, 2022). However, it does install from source.
 
@@ -44,6 +47,13 @@ if [[ "$version" == 3.10 ]] ; then
 		echo "tornado installed failed."  >& 2
 		err=1
     fi
+fi
+
+# Adjust package list for Python 3.13+
+if [[ "$version" == 3.13 ]] ; then
+    echo "Python 3.13 detected - excluding incompatible packages: $p3_only_exclude_313"  >& 2
+    # Remove macs2 from the package list for Python 3.13
+    p3_only=$(echo "$p3_only" | sed 's/macs2//g')
 fi
 
 if [[ "$version" == 2.7 ]] ; then

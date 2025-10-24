@@ -32,7 +32,7 @@ elif [[ "$major_version" == "python-3" ]] ; then
     fi
     export CPPFLAGS="-I $prefix/include"
     export LIBDIR=$prefix/lib
-    apt-get install build-essential zlib1g-dev libtinfo-dev libssl-dev libreadline-dev libffi-dev
+    apt-get install -y build-essential zlib1g-dev libtinfo-dev libssl-dev libreadline-dev libffi-dev
     ssl_loc=$(which openssl)
     ./configure -q --prefix=$prefix --exec-prefix=$prefix --enable-loadable-sqlite-extensions --enable-shared --enable-big-digits --enable-optimizations # --with-openssl=$ssl_loc
 elif [[ "$major_version" == "openssl-3" ]] ; then

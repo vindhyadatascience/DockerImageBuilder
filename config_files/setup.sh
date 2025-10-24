@@ -22,7 +22,7 @@ export TZ="America/New_York"
 export Julia_version=1.9.3 # possibly superfluous
 export LD_LIBRARY_PATH=$BUILD_PREFIX/lib/:${LD_LIBRARY_PATH}
 export CMDSTAN_PATH=$BUILD_PREFIX/binaries/cmdstan-$cmdstan_version
-export PYTHON_VERSION="3.12.7" #,3.10.2,3.9.10,3.8.12" # comma delimited list
+export PYTHON_VERSION="3.12.7,3.13.7" #,3.10.2,3.9.10,3.8.12" # comma delimited list - 3.12.7 for stability, 3.13.7 for latest features
 
 # export http_proxy=http://proxy-server.bms.com:8080
 # export HTTP_PROXY=http://proxy-server.bms.com:8080

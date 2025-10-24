@@ -211,7 +211,8 @@ output_docker_build_steps   docker/load_oracle.sh
 output_docker_build_steps   docker/install_julia.sh
 
 # # run miscellany.sh before installing R packages, for RODBC
-output_docker_build_steps   docker/miscellany.sh 
+output_docker_build_steps   docker/miscellany.sh
+output_docker_build_steps   docker/install_uv.sh
 
 output_docker_run_step      efs/install_java_on_efs.sh
 output_docker_run_step      efs/add_source_packages.sh

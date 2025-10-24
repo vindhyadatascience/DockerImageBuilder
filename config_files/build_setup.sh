@@ -44,7 +44,7 @@ export miniconda_installer=https://repo.anaconda.com/miniconda/Miniconda3-py311_
 export miniforge_installer=https://github.com/conda-forge/miniforge/releases/download/24.7.1-0/Mambaforge-24.7.1-0-Linux-x86_64.sh
 
 export R_studio_drivers_url=https://cdn.rstudio.com/drivers/7C152C12/installer/rstudio-drivers_2024.03.0_amd64.deb
-export R_studio_server_url=https://download2.rstudio.org/server/noble/amd64/rstudio-server-2025.09.1-401-amd64.deb
+export R_studio_server_url=https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2024.04.2-764-amd64.deb
 
 
 export domino_zip_url=https://github.com/dominodatalab/workspace-configs/archive/2021q1-v1.zip
